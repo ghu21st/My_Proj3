@@ -14,8 +14,7 @@
 			"python": false
 		},
 		"dataworkspace.excludedProjects": [
-			"MS_SQL_Proj1/MS_SQL_Proj1.sqlproj",
-			"Test_SQLServer1/Test_SQLServer1/Test_SQLServer1.sqlproj"
+
 		]
 	}
 }

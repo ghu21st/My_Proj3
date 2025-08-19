@@ -1,0 +1,2 @@
+bill_id,meter_id,usage_type,start_date,end_date
+b0001,15,water,2025-02-01,2024-03-01
