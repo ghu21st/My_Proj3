@@ -1,0 +1,16 @@
+2025-08-19 20:32:43 [    INFO] [test_int_query] test_valid_csv_exist() (test_int_query.py:54)
+2025-08-19 20:32:43 [    INFO] [test_int_query] test_empty_csv_exist() (test_int_query.py:59)
+2025-08-19 20:32:43 [    INFO] [test_int_query] test_brainbox_api_query_ok_csv() (test_int_query.py:64)
+2025-08-19 20:32:43 [   DEBUG] [urllib3.connectionpool] Starting new HTTP connection (1): localhost:8000 (connectionpool.py:241)
+2025-08-19 20:32:45 [   DEBUG] [urllib3.connectionpool] http://localhost:8000 "POST /upload/ HTTP/1.1" 200 179 (connectionpool.py:544)
+2025-08-19 20:32:45 [   DEBUG] [urllib3.connectionpool] http://localhost:8000 "POST /athena/query HTTP/1.1" 200 628 (connectionpool.py:544)
+2025-08-19 20:32:45 [    INFO] [test_int_query] For checkinging: {"columns":["bill_id","meter_id","usage_type","building_id","start_date","end_date"],"rows":[["b1",100,"kwh",1,"2024-01-01","2024-01-31"],["b0001",15,"water",101,"2025-02-01","2024-03-01"],["b0002",21,"electric",101,"2024-02-01","2024-03-01"],["b0003",103,"water",202,"2025-02-01","2025-03-01"],["b0003",105,"electric",202,"2025-02-01","2025-03-01"],["b0001",15,"water",101,"2025-02-01","2024-03-01"],["b0002",21,"electric",101,"2024-02-01","2024-03-01"],["b0003",103,"water",202,"2025-02-01","2025-03-01"],["b0003",105,"electric",202,"2025-02-01","2025-03-01"],["b0001",15,"water",101,"2025-02-01","2024-03-01"]],"rowcount":10}
+.+columns.+bill_id.+meter_id.+usage_type.+building_id.+start_date.+end_date.+
+.+b0001.+15.+water.+101.+2025-02-01.+2024-03-01.+b0002.+21.+electric.+101.+2024-02-01.+2024-03-01 (test_int_query.py:82)
+2025-08-19 20:32:45 [    INFO] [test_int_query] test_brainbox_api_query_bad_csv() (test_int_query.py:91)
+2025-08-19 20:32:45 [   DEBUG] [urllib3.connectionpool] Starting new HTTP connection (1): localhost:8000 (connectionpool.py:241)
+2025-08-19 20:32:47 [   DEBUG] [urllib3.connectionpool] http://localhost:8000 "POST /upload/ HTTP/1.1" 422 120 (connectionpool.py:544)
+2025-08-19 20:32:47 [   DEBUG] [urllib3.connectionpool] http://localhost:8000 "POST /athena/query HTTP/1.1" 200 628 (connectionpool.py:544)
+2025-08-19 20:32:47 [    INFO] [test_int_query] {"columns":["bill_id","meter_id","usage_type","building_id","start_date","end_date"],"rows":[["b1",100,"kwh",1,"2024-01-01","2024-01-31"],["b0001",15,"water",101,"2025-02-01","2024-03-01"],["b0002",21,"electric",101,"2024-02-01","2024-03-01"],["b0003",103,"water",202,"2025-02-01","2025-03-01"],["b0003",105,"electric",202,"2025-02-01","2025-03-01"],["b0001",15,"water",101,"2025-02-01","2024-03-01"],["b0002",21,"electric",101,"2024-02-01","2024-03-01"],["b0003",103,"water",202,"2025-02-01","2025-03-01"],["b0003",105,"electric",202,"2025-02-01","2025-03-01"],["b0001",15,"water",101,"2025-02-01","2024-03-01"]],"rowcount":10}
+.+columns.+bill_id.+meter_id.+usage_type.+building_id.+start_date.+end_date.+ (test_int_query.py:109)
+2025-08-19 20:32:47 [    INFO] [test_int_query] 200 (test_int_query.py:110)
