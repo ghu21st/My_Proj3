@@ -1,5 +1,6 @@
 # ---------------------------------------
 # QA tech assignement for BrainBox AI - Aug 2025
+# Python Integration API Test - query 
 # Gang Hu 
 # --------------------------------
 # modules

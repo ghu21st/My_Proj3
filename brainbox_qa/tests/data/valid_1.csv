@@ -1,5 +1,7 @@
 bill_id,meter_id,usage_type,building_id,start_date,end_date
 b0001,15,water,101,2025-02-01,2024-03-01
 b0002,21,electric,101,2024-02-01,2024-03-01
+b0003,33,water,105,2024-02-01,2024-03-01
+
 
 
