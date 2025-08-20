@@ -38,17 +38,12 @@ def brainbox_api_client():
 
 @pytest.fixture(scope="function")
 def valid_upload_file():
-    # 
     file_path = "./tests/data/valid_1.csv"
-    #file_path = '.data/' + file_name
-    #
     return file_path
 
 @pytest.fixture(scope="function")
 def empty_upload_file():
-    # 
     file_path = "./tests/data/empty_1.csv"  # csv file - column row ok, but data record rows empty
-    #
     return file_path
 
 def test_valid_csv_exist(valid_upload_file):

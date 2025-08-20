@@ -263,3 +263,27 @@ def test_post_upload_csv_fail_missing_col(mocker):
         files={'file': mocker.ANY},
         data={}
     )
+
+# -=----------------------
+def test_post_upload_csv_fail_nonexist_file(mocker):
+    LOGGER.info("test_post_upload_csv_fail_nonexist_file() under test_unit_validate.py")
+
+    # create temp csv file by tempfile module for testing
+    temp_file_path = 'xxxxx'
+
+    # Mock request.post
+    mock_post = mocker.patch("main_brainbox_api.requests.post")
+
+    # Set mock return values
+    mock_post.return_value.ok = False
+    mock_post.return_value.text = 'The CSV file does not exist'
+
+    # call the real function
+    result = post_upload_csv(temp_file_path)
+    # optional - for debug logging
+    LOGGER.info(result)
+
+    # Assertions
+    expected_pattern1 = "The CSV file does not exist"
+    actual_result = str(result)   #actual_result = json.dumps(response.text)
+    assert re.match(expected_pattern1, actual_result), f"Does not match the test pattern '{expected_pattern1}'"

@@ -66,6 +66,11 @@ def test_invalid_csv_exist(invalid_upload_file):
     #
     assert os.path.exists(invalid_upload_file), f"File {invalid_upload_file} does not exist"
 
+def test_invalid2_csv_exist(invalid2_upload_file):
+    LOGGER.info("test_invalid2_csv_exist()")
+    #
+    assert os.path.exists(invalid2_upload_file), f"File {invalid_upload_file} does not exist"
+
 def test_empty_csv_exist(empty_upload_file):
     LOGGER.info("test_empty_csv_exist()")
     #

@@ -53,25 +53,8 @@ def invalid_upload_file():
 
 @pytest.fixture(scope="function")
 def empty_upload_file():
-    # 
     file_path = "./tests/data/empty_1.csv"  # csv file - column row ok, but data record rows empty
-    #
     return file_path
-
-def test_valid_csv_exist(valid_upload_file):
-    LOGGER.info("test_valid_csv_exist()")
-    #
-    assert os.path.exists(valid_upload_file), f"File {valid_upload_file} does not exist"
-
-def test_invalid_csv_exist(invalid_upload_file):
-    LOGGER.info("test_invalid_csv_exist()")
-    #
-    assert os.path.exists(invalid_upload_file), f"File {invalid_upload_file} does not exist"
-
-def test_empty_csv_exist(empty_upload_file):
-    LOGGER.info("test_empty_csv_exist()")
-    #
-    assert os.path.exists(empty_upload_file), f"File {empty_upload_file} does not exist"
 
 def test_brainbox_api_upload_ok_csv(brainbox_api_client, upload_url, valid_upload_file):
     LOGGER.info("test_brainbox_api_upload_ok_csv()")
@@ -93,8 +76,8 @@ def test_brainbox_api_upload_ok_csv(brainbox_api_client, upload_url, valid_uploa
     assert re.match(expected_pattern, actual_result), f"Does not match the test pattern '{expected_pattern}'"
     # {"status":"ok","stored":"local_state/uploads/valid_1.csv","crawler_marker":"local_state/glue/bills_crawler__1755641316__abdb60140b924dc492f3736f3b73a9f1.marker","rows_inserted":4}
 
-def test_brainbox_api_upload_bad_csv(brainbox_api_client, upload_url, invalid_upload_file):
-    LOGGER.info("test_brainbox_api_validate_bad_csv()")
+def test_brainbox_api_upload_fail_missing_col_csv(brainbox_api_client, upload_url, invalid_upload_file):
+    LOGGER.info("test_brainbox_api_validate_fail_missing_col_csv()")
     #
     with open(invalid_upload_file, 'rb') as file_obj:
         # variables

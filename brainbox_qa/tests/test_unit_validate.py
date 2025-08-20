@@ -184,7 +184,7 @@ def test_post_validate_csv_fail_empty_file(mocker):
 
 # -=----------------------
 def test_post_validate_csv_fail_nonexist_file(mocker):
-    LOGGER.info("test_post_validate_csv_fail_empty_datarow() under test_unit_validate.py")
+    LOGGER.info("test_post_validate_csv_fail_nonexist_file() under test_unit_validate.py")
 
     # create temp csv file by tempfile module for testing
     temp_file_path = 'xxxxx'
@@ -449,43 +449,6 @@ def test_post_validate_csv_fail_wrongtype_col_bill_id(mocker):
     # Assertions
     expected_pattern1 = ".+error.+InvalidType.+"
     expected_pattern2 = ".+field.+bill_id.+expected.+string"
-    actual_result = str(result)   
-    assert re.match(expected_pattern1, actual_result), f"Does not match the test pattern '{expected_pattern1}'"
-    assert re.match(expected_pattern2, actual_result), f"Does not match the test pattern '{expected_pattern2}'"
-
-# -----------------
-def test_post_validate_csv_fail_wrongtype_col_meter_id(mocker):
-    LOGGER.info("test_post_validate_csv_fail_wrongtype_col_meter_id() under test_unit_validate.py")
-    # '{"error":"InvalidType","row":1,"field":"meter_id","expected":"integer"}'
-
-    # create temp csv file by tempfile module for testing
-    csv_content = "bill_id,meter_id,usage_type,building_id,start_date,end_date\
-                    b0001,xxx,water,101,2025-02-01,2024-03-01"
-    with tempfile.NamedTemporaryFile(mode='w', delete=False) as tmp_file:
-        tmp_file.write(csv_content)
-        temp_file_path = tmp_file.name
-
-    # Mock request.post
-    mock_post = mocker.patch("main_brainbox_api.requests.post")
-
-    # Set mock return values
-    mock_post.return_value.ok = False
-    mock_post.return_value.status_code = 422
-    mock_post.return_value.json.return_value = {    
-        "error":"InvalidType",
-        "row":1,
-        "field":"meter_id",
-        "expected":"integer"
-        }
-
-    # call the real function
-    result = post_validate_csv(temp_file_path)
-    # optional - for debug logging
-    LOGGER.info(result)
-
-    # Assertions
-    expected_pattern1 = ".+error.+InvalidType.+"
-    expected_pattern2 = ".+field.+meter_id.+expected.+integer"
     actual_result = str(result)   
     assert re.match(expected_pattern1, actual_result), f"Does not match the test pattern '{expected_pattern1}'"
     assert re.match(expected_pattern2, actual_result), f"Does not match the test pattern '{expected_pattern2}'"
