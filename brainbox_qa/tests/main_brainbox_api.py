@@ -3,6 +3,7 @@ import requests
 import os
 import json
 
+#--------------------------------------------
 # url 
 url_endpoint_upload = "http://localhost:8000/upload/"
 url_endpoint_validate = "http://localhost:8000/validate/"
@@ -10,16 +11,23 @@ url_endpoint_query = "http://localhost:8000/athena/query/"
 
 # CSV file
 valid_csv_file = "./tests/data/valid_1.csv"
- 
+invalid_csv_file = './tests/data/invalid_1.csv'
+empty_csv_file = './tests/data/empty_1.csv'
+nonexist_csv_file = './tests/data/xxxxx.csv'
+  
+# -------------------------------------------
 # post csv file to API endpoint - upload
 def post_upload_csv(file):
     # test data files
     file_path = file
     if not os.path.exists(file_path):
-        raise ValueError(f"The file '{file_path}' does not exist")
-    response = None    
+        #raise ValueError(f"The file '{file_path}' does not exist")
+        ret = f"The CSV file does not exist"
+        print(ret)
+        return ret
 
     # POST - upload 
+    response = None    
     with open(file_path, 'rb') as file_obj:
         # variables
         files = {'file': file_obj}
@@ -35,7 +43,8 @@ def post_upload_csv(file):
         else:
             print(response.status_code)
             print(response.text)
-            raise ValueError("File upload failed")
+            print("File upload failed")
+            #raise ValueError("File upload failed")
         # 
     return response.json()
 
@@ -43,10 +52,13 @@ def post_upload_csv(file):
 def post_validate_csv(file):
     file_path = file
     if not os.path.exists(file_path):
-        raise ValueError(f"The file '{file_path}' does not exist")
-    response = None
+        #raise ValueError(f"The file '{file_path}' does not exist")
+        ret = f"The CSV file does not exist"
+        print(ret)
+        return ret
 
     # POST - validate
+    response = None
     with open(file_path, 'rb') as file_obj: 
         files = {'file': file_obj}
         data = {}
@@ -58,7 +70,8 @@ def post_validate_csv(file):
         else:
             print(f"Status code: {response.status_code}")
             print(response.text)
-            raise ValueError("File validate failed")
+            print("File validate failed")
+            #raise ValueError("File validate failed")
     #
     return response.json() 
 
@@ -66,10 +79,13 @@ def post_validate_csv(file):
 def post_query_csv(file):
     file_path = file
     if not os.path.exists(file_path):
-        raise ValueError(f"The file '{file_path}' does not exist")
-    response = None
+        #raise ValueError(f"The file '{file_path}' does not exist")
+        ret = f"The CSV file does not exist"
+        print(ret)
+        return ret
 
     # POST - query
+    response = None
     with open(file_path, 'rb') as file_obj:
         # variables
         files = {'file': file_obj}
@@ -89,14 +105,34 @@ def post_query_csv(file):
             print(response.status_code)
             print(response.text)
             #print(response.json())
-            raise ValueError("Query failed")
+            print("Query failed")
+            #raise ValueError("Query failed")
     #
     return response.json() 
 
 #-------------------------------------
 # Call the functions under main
 if __name__ == '__main__':
+    # Valid CSV
+    print("-------- Valid CSV ------------")
     post_validate_csv(valid_csv_file)
     post_upload_csv(valid_csv_file)
     post_query_csv(valid_csv_file)
 
+    # Empty CSV
+    print("-------- Empty CSV ------------")
+    post_validate_csv(empty_csv_file)
+    post_upload_csv(empty_csv_file)
+    post_query_csv(empty_csv_file)
+
+    # Invalid CSV (missing column)
+    print("-------- Inalid CSV ------------")
+    post_validate_csv(invalid_csv_file)
+    post_upload_csv(invalid_csv_file)
+    post_query_csv(invalid_csv_file)
+
+    # Non-exist CSV 
+    print("-------- Non-exist CSV ------------")
+    post_validate_csv(nonexist_csv_file)
+    post_upload_csv(nonexist_csv_file)
+    post_query_csv(nonexist_csv_file)
