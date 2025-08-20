@@ -87,7 +87,7 @@ def test_brainbox_api_upload_ok_csv(brainbox_api_client, upload_url, valid_uploa
     # assert check
     expected_pattern = ".+status.+ok.+stored.+local_state/uploads.+crawler_marker.+local_state/glue/bills_crawler_.*"
     actual_result = str(response.text)   #actual_result = json.dumps(response.text)
-    LOGGER.info(actual_result + '\n' + expected_pattern)
+    LOGGER.info(actual_result)
     #
     assert response.status_code == 200 
     assert re.match(expected_pattern, actual_result), f"Does not match the test pattern '{expected_pattern}'"
@@ -108,7 +108,7 @@ def test_brainbox_api_upload_bad_csv(brainbox_api_client, upload_url, invalid_up
     #expected_pattern1 = ".+File validated failed.+"
     expected_pattern = ".+error.+InvalidSchema.+missing.+building_id.+"
     actual_result = str(response.text)   #actual_result = json.dumps(response.text)
-    LOGGER.info(actual_result + '\n' + expected_pattern)
+    LOGGER.info(actual_result)
     #
     assert response.status_code == 422 
     assert re.match(expected_pattern, actual_result), f"Does not match the test pattern '{expected_pattern}'"
@@ -129,7 +129,7 @@ def test_brainbox_api_upload_empty_csv(brainbox_api_client, upload_url, empty_up
     #expected_pattern1 = ".+File validated failed.+"
     expected_pattern = ".+error.+InvalidSchema.+missing.+building_id.+"
     actual_result = str(response.text)   #actual_result = json.dumps(response.text)
-    LOGGER.info(actual_result + '\n' + expected_pattern)
+    LOGGER.info(actual_result)
     #
     assert response.status_code == 422 
     assert re.match(expected_pattern, actual_result), f"Does not match the test pattern '{expected_pattern}'"

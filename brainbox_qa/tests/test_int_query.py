@@ -81,7 +81,7 @@ def test_brainbox_api_query_ok_csv(brainbox_api_client, upload_url, query_url, v
     expected_pattern = ".+columns.+bill_id.+meter_id.+usage_type.+building_id.+start_date.+end_date.+"
     expected_pattern2 = ".+b0001.+15.+water.+101.+2025-02-01.+2024-03-01.+b0002.+21.+electric.+101.+2024-02-01.+2024-03-01.+rowcount.+10"
     actual_result = str(response.text)   #actual_result = json.dumps(response.text)
-    LOGGER.info('For checkinging: ' + actual_result + '\n' + expected_pattern + '\n' + expected_pattern2)
+    LOGGER.info(actual_result)
     #
     assert response.status_code == 200 
     assert re.match(expected_pattern, actual_result), f"Does not match the test pattern '{expected_pattern}'"
@@ -90,7 +90,7 @@ def test_brainbox_api_query_ok_csv(brainbox_api_client, upload_url, query_url, v
 
 
 def test_brainbox_api_query_empty_csv(brainbox_api_client, upload_url, query_url, empty_upload_file):
-    # Verify API upload empty CSV file, failed, no populate to DB table, but SQL query still can check for old records
+    # Verify API upload empty CSV file, failed, no data populate to DB table, but SQL query still can check for old records
     LOGGER.info("test_brainbox_api_query_bad_csv()")
     # Upload --------------
     with open(empty_upload_file, 'rb') as file_obj:
@@ -119,8 +119,7 @@ def test_brainbox_api_query_empty_csv(brainbox_api_client, upload_url, query_url
     #expected_pattern1 = ".+File validated failed.+"
     expected_pattern = ".+columns.+bill_id.+meter_id.+usage_type.+building_id.+start_date.+end_date.+"
     actual_result = str(response.text)   #actual_result = json.dumps(response.text)
-    LOGGER.info(actual_result + '\n' + expected_pattern)
-    LOGGER.info(response.status_code)
+    LOGGER.info(actual_result)
     #
     assert response.status_code == 200 
     assert re.match(expected_pattern, actual_result), f"Does not match the test pattern '{expected_pattern}'"

@@ -12,6 +12,7 @@ url_endpoint_query = "http://localhost:8000/athena/query/"
 # CSV file
 valid_csv_file = "./tests/data/valid_1.csv"
 invalid_csv_file = './tests/data/invalid_1.csv'
+invalid2_csv_file= './tests/data/invalid_2.csv'
 empty_csv_file = './tests/data/empty_1.csv'
 nonexist_csv_file = './tests/data/xxxxx.csv'
   
@@ -113,26 +114,50 @@ def post_query_csv(file):
 #-------------------------------------
 # Call the functions under main
 if __name__ == '__main__':
+
+
     # Valid CSV
     print("-------- Valid CSV ------------")
+    print("/validate API call")
     post_validate_csv(valid_csv_file)
+    print()
+    print("/upload API call")
     post_upload_csv(valid_csv_file)
+    print()
+    print("/query API call --- Optional")
     post_query_csv(valid_csv_file)
 
     # Empty CSV
     print("-------- Empty CSV ------------")
+    print("/validate API call")
     post_validate_csv(empty_csv_file)
+    print()
+    print("/upload API call")
     post_upload_csv(empty_csv_file)
-    post_query_csv(empty_csv_file)
 
     # Invalid CSV (missing column)
     print("-------- Inalid CSV ------------")
+    print("/validate API call")
     post_validate_csv(invalid_csv_file)
+    print()
+    print("/upload API call")
     post_upload_csv(invalid_csv_file)
-    post_query_csv(invalid_csv_file)
+
+    # Invalid2 CSV (wrong datatype)
+    print("-------- Inalid2 CSV ------------")
+    print("/validate API call")
+    post_validate_csv(invalid2_csv_file)
+    print()
+    print("/upload API call")
+    post_upload_csv(invalid2_csv_file)
 
     # Non-exist CSV 
     print("-------- Non-exist CSV ------------")
+    print("/validate API call")
     post_validate_csv(nonexist_csv_file)
+    print()
+    print("/upload API call")
     post_upload_csv(nonexist_csv_file)
+    print()
+    print("/query API call --- Optional")
     post_query_csv(nonexist_csv_file)
