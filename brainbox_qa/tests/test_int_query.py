@@ -61,6 +61,7 @@ def test_empty_csv_exist(empty_upload_file):
     assert os.path.exists(empty_upload_file), f"File {empty_upload_file} does not exist"
 
 def test_brainbox_api_query_ok_csv(brainbox_api_client, upload_url, query_url, valid_upload_file):
+    # Verify API upload CSV file, populate to DB table and then run SQL query to check (row count = 10)
     LOGGER.info("test_brainbox_api_query_ok_csv()")
     # Upload --------------
     with open(valid_upload_file, 'rb') as file_obj:
@@ -77,7 +78,7 @@ def test_brainbox_api_query_ok_csv(brainbox_api_client, upload_url, query_url, v
  
     # assert check
     expected_pattern = ".+columns.+bill_id.+meter_id.+usage_type.+building_id.+start_date.+end_date.+"
-    expected_pattern2 = ".+b0001.+15.+water.+101.+2025-02-01.+2024-03-01.+b0002.+21.+electric.+101.+2024-02-01.+2024-03-01"
+    expected_pattern2 = ".+b0001.+15.+water.+101.+2025-02-01.+2024-03-01.+b0002.+21.+electric.+101.+2024-02-01.+2024-03-01.+rowcount.+10"
     actual_result = str(response.text)   #actual_result = json.dumps(response.text)
     LOGGER.info('For checkinging: ' + actual_result + '\n' + expected_pattern + '\n' + expected_pattern2)
     #
@@ -88,6 +89,7 @@ def test_brainbox_api_query_ok_csv(brainbox_api_client, upload_url, query_url, v
 
 
 def test_brainbox_api_query_empty_csv(brainbox_api_client, upload_url, query_url, empty_upload_file):
+    # Verify API upload empty CSV file, failed, no populate to DB table, but SQL query still can check for old records
     LOGGER.info("test_brainbox_api_query_bad_csv()")
     # Upload --------------
     with open(empty_upload_file, 'rb') as file_obj:
@@ -96,6 +98,16 @@ def test_brainbox_api_query_empty_csv(brainbox_api_client, upload_url, query_url
         data = {}
          # send POST to endpoint upload
         response = brainbox_api_client.post(upload_url, files = files, data = data)
+
+    # assert check
+    #expected_pattern1 = ".+File validated failed.+"
+    expected_pattern = ".+error.+InvalidSchema.+missing.+building_id.+"
+    actual_result = str(response.text)   #actual_result = json.dumps(response.text)
+    LOGGER.info(actual_result + '\n' + expected_pattern)
+    #
+    assert response.status_code == 422 
+    assert re.match(expected_pattern, actual_result), f"Does not match the test pattern '{expected_pattern}'"
+    # {"error":"InvalidSchema","missing":["building_id"],"extra":[]}
 
     # Query ------------
     payload = {"sql": "SELECT * FROM custom_csv LIMIT 10"}
